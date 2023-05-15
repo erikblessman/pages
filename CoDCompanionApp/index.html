@@ -10,5 +10,50 @@
   <body>
     <h1>Hello CoD:AoD!</h1>
     <p>This is a Progressive Web App!!!!</p>
+    <!-- Create a form to collect "Character Name" as a string, "Yellow Upgrade #1 as a boolean", "Yellow Upgrade #2 as a boolean", stores the data to local storage (with the Character Name as a key) and retrieves the default values from local storage-->
+    <form>
+      <label for="charName">Character Name</label>
+      <input type="text" id="charName" name="charName" required><br>
+      <label for="yellowUp1">Yellow Upgrade #1</label>
+      <input type="checkbox" id="yellowUp1" name="yellowUp1" value="yellowUp1"><br>
+      <label for="yellowUp2">Yellow Upgrade #2</label>
+      <input type="checkbox" id="yellowUp2" name="yellowUp2" value="yellowUp2"><br>
+      <input type="button" value="Retrieve" onclick="retrieveCharacter()" />
+      <input type="button" value="Save" onclick="storeCharacter()" />
+    </form>
+
   </body>
+  <script>
+    //<!-- Create a script that stores the data to local storage (with the Character Name as a key) and retrieves the default values from local storage-->
+    function storeCharacter() {
+      const characterInfo = {
+        charName: document.getElementById("charName").value,
+        yellowUp1: document.getElementById("yellowUp1").checked,
+        yellowUp2: document.getElementById("yellowUp2").checked
+      };
+      characters = getCharacters();
+      characters[characterInfo.charName] = characterInfo;
+      localStorage.setItem("characters", JSON.stringify(characters));
+    }
+
+    function retrieveCharacter() {
+      const charName = document.getElementById("charName").value;
+      const characters = getCharacters();
+      const characterInfo = characters[charName];
+      if(characterInfo == null) {
+        alert(`No such character "${charName}"`)
+        document.getElementById("yellowUp1").checked = characterInfo["yellowUp1"] ?? false;
+        document.getElementById("yellowUp2").checked = characterInfo["yellowUp2"] ?? false;
+      }
+    }
+
+    // function to get characters from local storage
+    function getCharacters() {
+      let characters = JSON.parse(localStorage.getItem("characters"));
+      if (characters == null) {
+        characters = {};
+      }
+      return characters;
+    }
+  </script>
 </html>
