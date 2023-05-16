@@ -5,4 +5,3 @@ if ('serviceWorker' in navigator)
     .then(console.log)
     .catch(console.error);
 }
-
