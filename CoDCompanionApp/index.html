@@ -42,6 +42,8 @@
       const characterInfo = characters[charName];
       if(characterInfo == null) {
         alert(`No such character "${charName}"`)
+      }
+      else {
         document.getElementById("yellowUp1").checked = characterInfo["yellowUp1"] ?? false;
         document.getElementById("yellowUp2").checked = characterInfo["yellowUp2"] ?? false;
       }
