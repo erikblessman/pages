@@ -14,11 +14,11 @@
     <!-- Create a form to collect "Character Name" as a string, "Yellow Upgrade #1 as a boolean", "Yellow Upgrade #2 as a boolean", stores the data to local storage (with the Character Name as a key) and retrieves the default values from local storage-->
     <form>
       <div class="form-group">
-        <div class="input-group" id="charName">
-          <input type="text" class="form-control form-control-lg d-inline" id="charNameInput" name="charNameInput" placeholder="Character Name">
-          <input type="button" value="Retrieve" onclick="retrieveCharacter()" />
+        <div class="hello-world text-center" id="charName">
+          <input type="text" class="form-control form-control-lg d-inline text-center" id="charNameInput" name="charNameInput" placeholder="Character Name">
+          <input type="button" class="form-control form-control-lg" value="Retrieve" onclick="retrieveCharacter()" />
         </div>
-        <h1 id="charNameH1" name="charNameH1" class="d-none" onclick="editName()"></h1>
+        <h1 id="charNameH1" name="charNameH1" class="d-none d-flex justify-content-center" onclick="editName()"></h1>
       </div>
       <div class="row">
         <div class="col-6 col-sm-3 bg-melee skill-ctl">0</div>
@@ -26,7 +26,8 @@
         <div class="col-6 col-sm-3 bg-agility skill-ctl">0</div>
         <div class="col-6 col-sm-3 bg-wisdom skill-ctl">0</div>
       </div>
-      <input type="button" value="Save" onclick="storeCharacter()" />
+      <input type="button" value="Save" class="form-control form-control-lg" onclick="storeCharacter()" />
+      <img class="d-flex" src="./icon.png" alt="CoD:AoD Logo" width="100%" height="100%"/>
     </form>
 
   </body>
@@ -65,7 +66,7 @@
       rangedCtl().innerHTML = characterInfo?.ranged ?? 0;
       agilityCtl().innerHTML = characterInfo?.agility ?? 0;
       wisomCtl().innerHTML = characterInfo?.wisdom ?? 0;
-      if( charNameH1().innerHTML != "" ) {
+      if( charNameInput().value != "" ) {
         charNameH1().innerHTML = charNameInput().value;
         // only hide the input if the name is not empty
         charNameH1().classList.remove("d-none");
