@@ -61,13 +61,16 @@
     function retrieveCharacter() {
       const characters = getCharacters();
       const characterInfo = characters[charNameInput().value];
-      charNameH1().innerHTML = charNameInput().value;
       meleeCtl().innerHTML = characterInfo?.melee ?? 0;
       rangedCtl().innerHTML = characterInfo?.ranged ?? 0;
       agilityCtl().innerHTML = characterInfo?.agility ?? 0;
       wisomCtl().innerHTML = characterInfo?.wisdom ?? 0;
-      charNameH1().classList.remove("d-none");
-      charName().classList.add("d-none");
+      if( charNameH1().innerHTML != "" ) {
+        charNameH1().innerHTML = charNameInput().value;
+        // only hide the input if the name is not empty
+        charNameH1().classList.remove("d-none");
+        charName().classList.add("d-none");
+      }
     }
 
     // function to get characters from local storage
