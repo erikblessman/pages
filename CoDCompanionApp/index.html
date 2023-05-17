@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#E3DDC1"/>
     <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="./site.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script> 
     <script src="./app.js" defer></script>
@@ -18,8 +19,14 @@
           <input type="button" value="Retrieve" onclick="retrieveCharacter()" />
         </div>
         <h1 id="charNameH1" name="charNameH1" class="d-none" onclick="editName()"></h1>
-        <input type="button" value="Save" onclick="storeCharacter()" />
-        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-sm-3 bg-melee skill-ctl">0</div>
+        <div class="col-6 col-sm-3 bg-ranged skill-ctl">0</div>
+        <div class="col-6 col-sm-3 bg-agility skill-ctl">0</div>
+        <div class="col-6 col-sm-3 bg-wisdom skill-ctl">0</div>
+      </div>
+      <input type="button" value="Save" onclick="storeCharacter()" />
     </form>
 
   </body>
@@ -27,6 +34,10 @@
     const charName = () => document.getElementById("charName");
     const charNameInput = () => document.getElementById("charNameInput");
     const charNameH1 = () => document.getElementById("charNameH1");
+    const meleeCtl = () => document.getElementsByClassName("bg-melee")[0];
+    const rangedCtl = () => document.getElementsByClassName("bg-ranged")[0];
+    const agilityCtl = () => document.getElementsByClassName("bg-agility")[0];
+    const wisomCtl = () => document.getElementsByClassName("bg-wisdom")[0];
 
     function editName() {
       charName().classList.remove("d-none");
@@ -36,7 +47,11 @@
 
     function storeCharacter() {
       const characterInfo = {
-        charName: document.getElementById("charName").value
+        charName: charNameInput().value,
+        melee: meleeCtl()?.innerHTML,
+        ranged: rangedCtl()?.innerHTML,
+        agility: agilityCtl()?.innerHTML,
+        wisdom: wisomCtl()?.innerHTML
       };
       characters = getCharacters();
       characters[characterInfo.charName] = characterInfo;
@@ -47,6 +62,10 @@
       const characters = getCharacters();
       const characterInfo = characters[charNameInput().value];
       charNameH1().innerHTML = charNameInput().value;
+      meleeCtl().innerHTML = characterInfo?.melee ?? 0;
+      rangedCtl().innerHTML = characterInfo?.ranged ?? 0;
+      agilityCtl().innerHTML = characterInfo?.agility ?? 0;
+      wisomCtl().innerHTML = characterInfo?.wisdom ?? 0;
       charNameH1().classList.remove("d-none");
       charName().classList.add("d-none");
     }
@@ -58,6 +77,20 @@
         characters = {};
       }
       return characters;
+    }
+
+    function skillPress(div) {
+      var count = 0;
+      if(div.innerHTML?.length > 0) {
+        count = parseInt(div.innerHTML);
+      }
+      if(count >= 2) {
+        count = 0;
+      }
+      else {
+        count++;
+      }
+      div.innerHTML = count;//.toString();
     }
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -74,6 +107,13 @@
         if (event.keyCode === 13) {
           event.preventDefault();
         }
+      });
+
+      // register the click for every div with class "skill-ctl" to call skillPress()
+      document.querySelectorAll(".skill-ctl").forEach(item => {
+        item.addEventListener("click", event => {
+          skillPress(item);
+        });
       });
     });
   </script>

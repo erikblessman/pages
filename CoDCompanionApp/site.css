@@ -1,0 +1,21 @@
+.bg-melee {
+    background-color: darkgoldenrod;
+}
+.bg-ranged {
+    background-color: darkred;
+}
+.bg-agility {
+    background-color: darkgreen;
+}
+.bg-wisdom {
+    background-color: mediumblue;
+}
+.skill-ctl {
+    border-radius: 5px;
+    color:white;
+    /* align the text horizontally and vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+}
